@@ -5,11 +5,6 @@ import random
 
 def fu(a):
     return a*2
-<<<<<<< HEAD
-change1='внесено изменение'
-change2='внесено изменение'
-=======
->>>>>>> parent of f1034c2... Update MyM.py
 
 def get_coding(letter, max_rnd, lst):
     rnd_index = random.randint(0, max_rnd)
