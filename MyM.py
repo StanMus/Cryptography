@@ -8,6 +8,7 @@ def fu(a):
 
 change=1
 change=2
+change=3
 
 def get_coding(letter, max_rnd, lst):
     rnd_index = random.randint(0, max_rnd)
