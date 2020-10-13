@@ -6,6 +6,9 @@ import random
 def Function(x):
     return x^2-1
 
+def Fuuu(u):
+    return u*2
+
 def get_coding(letter, max_rnd, lst):
     rnd_index = random.randint(0, max_rnd)
     rez = -1
