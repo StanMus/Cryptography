@@ -6,6 +6,8 @@ import random
 def fu(a):
     return a*2
 
+change=1
+
 def get_coding(letter, max_rnd, lst):
     rnd_index = random.randint(0, max_rnd)
     rez = -1
