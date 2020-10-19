@@ -14,9 +14,7 @@ def get_coding(letter, max_rnd, lst):
 
 def get_lst():
     txt = txt2cod.get('1.0', 'end-1c')
-    cod_txt = []
-    for i in txt:
-        cod_txt.append(str(i))
+    cod_txt = txt
     return cod_txt
 
 def get_gamma(txt):
@@ -29,18 +27,9 @@ def get_gamma(txt):
     # Сохранить gamma в отдельный файл
     file = open('gamma.txt', 'w')
     file.write(gamma_digital)
+    file.close()
 
     return gamma_digital
-
-def my_test(event):
-    var1 = get_lst()
-    var2 = get_gamma(var1)
-    var4 = lst_digital(var1)
-    var3 = load_dict()
-    # a = var.cod_txt
-    # b = var.lst
-    # a = [var, type(var)]
-    output.insert('0.0', var2)
 
 def load_dict():
     file = open(libEntry.get(), 'r', encoding="utf8")
@@ -151,6 +140,7 @@ def decoding_click(event):
         gamma_file = 'gamma.txt'
         file = open(gamma_file, 'r', encoding="utf8")
         gamma_digital = file.read()
+        file.close()
 
         code_digital = make_code(lst_dig, gamma_digital)
         code_letters = make_letters(code_digital)
@@ -162,8 +152,31 @@ def clear(event):
     txt2cod.delete('1.0', 'end')
 
 def save_text(event):
+    txt = txt2cod.get('1.0', 'end-1c')
+    txt_dig = lst_digital(txt)
+    txts = 'Исходный текст: ' + txt + ' ({})'.format(txt_dig)
+
+    gamma_file = 'gamma.txt'
+    file = open(gamma_file, 'r', encoding="utf8")
+    gamma_dig = file.read()
+    file.close()
+    gamma_letters = make_letters(gamma_dig)
+    gammas = 'Гамма: ' + gamma_letters + ' ({})'.format(gamma_dig) + '\n'
+
+    result = output.get('0.0', 'end-1c')
+    result_dig = lst_digital(result)
+    results = 'Результат: ' + result + ' ({})'.format(result_dig) + '\n'
+
     file = open('results.txt', 'w')
-    file.write(output.get('0.0', 'end'))
+    file.write(results)
+    file.close()
+
+    file = open('results.txt', 'a')
+    file.write(gammas)
+    file.close()
+
+    file = open('results.txt', 'a')
+    file.write(txts)
     file.close()
 
 def load_text(event):
@@ -214,15 +227,15 @@ btnOpenD.place(x=260, y=335, width=110, height=25)
 btnOpenD['text'] = 'Открыть'
 btnOpenD.bind('<Button-1>', open_dictionary)
 
-label4 = Label(frame1, text='Гамма:', bg='#E7E6E6', font="Verdana 11")
-label4.place(x=30, y=365, width=60, height=25)
-libEntry2 = Entry(frame1, bg="white", bd=0, font="Verdana 11")
-libEntry2.insert(END, 'gamma.txt')
-libEntry2.place(x=120, y=365, width=120, height=25)
-btnOpenG = Button(frame1, bg='white', bd=0, font="Verdana 11")
-btnOpenG.place(x=260, y=365, width=110, height=25)
-btnOpenG['text'] = 'Открыть'
-btnOpenG.bind('<Button-1>', open_gamma)
+# label4 = Label(frame1, text='Гамма:', bg='#E7E6E6', font="Verdana 11")
+# label4.place(x=30, y=365, width=60, height=25)
+# libEntry2 = Entry(frame1, bg="white", bd=0, font="Verdana 11")
+# libEntry2.insert(END, 'gamma.txt')
+# libEntry2.place(x=120, y=365, width=120, height=25)
+# btnOpenG = Button(frame1, bg='white', bd=0, font="Verdana 11")
+# btnOpenG.place(x=260, y=365, width=110, height=25)
+# btnOpenG['text'] = 'Открыть'
+# btnOpenG.bind('<Button-1>', open_gamma)
 
 btnCod = Button(frame1, bg='white', bd=0, font="Verdana 11")
 btnCod.place(x=260, y=263, width=110, height=25)
@@ -237,10 +250,5 @@ btnClear = Button(frame1, bg='white', font="Verdana 11")
 btnClear.place(x=650, y=300, width=100)
 btnClear['text'] = 'Очистить'
 btnClear.bind('<Button-1>', clear)
-
-btnSave = Button(frame1, width=14, bg='white', font="Verdana 11")
-btnSave.place(x=220, y=370)
-btnSave['text'] = 'Сохранить'
-btnSave.bind('<Button-1>', save)
 
 window.mainloop()
