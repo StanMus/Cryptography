@@ -1,30 +1,77 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
+import tkinter.filedialog, tkinter.messagebox
+import os
+from os import system
 
-def get_lst():
-    txt = txt2cod.get('1.0', 'end')
-    cod_txt = []
-    for i in txt:
-        cod_txt.append(str(i))
-    k = libEntry.get()
-    file = open(libEntry.get(), 'r', encoding="utf8")
-    line = file.read()
-    lst = []
-    for i in line:
-        lst.append(str(i))
-    return lst, cod_txt
+# the root window:
+def Sticky():
+    r = Tk()
+    r.option_add('*font', '{Helvetica} 11')
+    t = Text(r, bg = '#f9f3a9', wrap = 'word', undo = True)
+    t.focus_set()
+    t.pack(fill = 'both', expand = 1)
+    r.geometry('220x235')
+    r.title('Note')
 
-window = Tk()
-window.title("Шифратор и дешифратор на основе алгоритма «Блокнот»")
-window.iconbitmap(u'main.ico')
-window.resizable(width=False, height=False)
-window.configure(bg='white')
-frame1 = Frame(window, width=780, height=410)
-frame1.grid(row=0, column=0)
-label1 = Label(frame1, text='Исходный текст:', width=40, font="Verdana 11")
-label1.place(x=10, y=10)
-txt2cod = Text(frame1, width=36, height=15, bg='grey', bd=2, font="Verdana 11", wrap=WORD)
-txt2cod.config(state=NORMAL)
-txt2cod.place(x=10, y=35)
+    TextWidget(t) # pass along t, your Text
 
-window.mainloop()
+    m = tkinter.Menu(r)
+    m.add_command(label="+", command=text.new_window)
+    m.add_command(label="Save", command=text.save_file)
+    m.add_command(label="Save As", command=text.save_file_as)
+    m.add_command(label="Open", command=text.open_file)
+    r.config(menu=m)
+
+    r.mainloop()
+
+# the text widget, and all of its functions:
+class TextWidget:
+    def __init__(self, text):
+        self.text = text # pass the text widget
+        self.filename = ''
+        self._filetypes = [
+        ('Text', '*.txt'),
+            ('All files', '*'),
+            ]
+
+    def save_file(self, whatever = None):
+        if (self.filename == ''):
+            self.save_file_as()
+        else:
+            f = open(self.filename, 'w')
+            f.write(self.text.get('1.0', 'end')) # change every 'self' that refers to the Text, to self.text
+            f.close()
+            tkinter.messagebox.showinfo('FYI', 'File Saved.')
+
+    def save_file_as(self, whatever = None):
+        self.filename = tkinter.filedialog.asksaveasfilename(defaultextension='.txt',
+                                                             filetypes = self._filetypes)
+        f = open(self.filename, 'w')
+        f.write(self.text.get('1.0', 'end'))
+        f.close()
+        tkinter.messagebox.showinfo('FYI', 'File Saved')
+
+    def open_file(self, whatever = None, filename = None):
+        if not filename:
+            self.filename = tkinter.filedialog.askopenfilename(filetypes = self._filetypes)
+        else:
+            self.filename = filename
+        if not (self.filename == ''):
+            f = open(self.filename, 'r')
+            f2 = f.read()
+            self.text.delete('1.0', 'end')
+            self.text.insert('1.0', f2)
+            f.close()
+            self.text.title('Sticky %s)' % self.filename)
+
+    def new_window(self):
+        Sticky()
+
+    def help(whatever = None):
+        tkinter.messagebox.showinfo('Help', message = '''
+Help
+''')
+# make it so:
+if __name__ == '__main__':
+    Sticky()
