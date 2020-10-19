@@ -3,8 +3,6 @@ from tkinter import *
 from tkinter.filedialog import *
 import random
 
-коды
-
 def get_coding(letter, max_rnd, lst):
     rnd_index = random.randint(0, max_rnd)
     rez = -1
