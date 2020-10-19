@@ -238,4 +238,9 @@ btnClear.place(x=650, y=300, width=100)
 btnClear['text'] = 'Очистить'
 btnClear.bind('<Button-1>', clear)
 
+btnSave = Button(frame1, width=14, bg='white', font="Verdana 11")
+btnSave.place(x=220, y=370)
+btnSave['text'] = 'Сохранить'
+btnSave.bind('<Button-1>', save)
+
 window.mainloop()
