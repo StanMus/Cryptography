@@ -10,6 +10,21 @@ def get_lst():
     cod_txt = txt
     return cod_txt
 
+def get_lst_letters(lst_numbers, dict_digital):
+    lst_numbers_str = lst_numbers.split()
+    lst_numbers = []
+    for i in lst_numbers_str:
+        lst_number = int(i)
+        lst_numbers.append(lst_number)
+
+    list_letters = list(dict_digital)
+    lst = []
+    for i in lst_numbers:
+        element = list_letters[i]
+        lst.append(element)
+    lst_str = ''.join(lst)
+    return lst_str
+
 def get_gamma(txt):
     gamma = []
     for i in range(0, len(txt)*8):
@@ -81,6 +96,7 @@ def make_code(lst_dig, gamma_dig):
 
 def make_letters(code_digital):
     dict_letters = load_dict(dict_path)[1]
+    list_letters = list(dict_letters)
     code_di = []
     for i in code_digital:
         code_di.append(int(i))
@@ -100,6 +116,27 @@ def make_letters(code_digital):
         code_letters = []
     return code_letters
 
+def make_numbers(code_digital):
+    dict_letters = load_dict(dict_path)[1]
+    list_letters = list(dict_letters)
+    code_di = []
+    for i in code_digital:
+        code_di.append(int(i))
+    n_letters = int(len(code_di) / 8) # сделать ветку, что может быть нецелый результат
+    code_le = []
+    for i in range(0, n_letters):
+        letter_di = code_di[i*8 : (i+1)*8]
+        letter = ''.join(str(j) for j in letter_di)
+        code_le.append(letter)
+    code_letters = []
+    try:
+        for i in code_le:
+            element = list_letters.index(i)
+            code_letters.append(element)
+    except KeyError:
+        code_letters = []
+    return code_letters
+
 def coding_click(event):
     lst = get_lst()
     dict_digital = load_dict(dict_path)[0]
@@ -110,17 +147,16 @@ def coding_click(event):
     else:
         gamma_digital = get_gamma(lst)
         code_digital = make_code(lst_dig, gamma_digital)
-        code_letters = make_letters(code_digital)
+        code_numbers = make_numbers(code_digital)
         output.delete('1.0', 'end')
-        output.insert("0.0", code_letters)
+        output.insert("0.0", code_numbers)
 
 def decoding_click(event):
-    code_letters = output.get('1.0', 'end-1c')
+    code_numbers = output.get('1.0', 'end-1c')
     txt2cod.delete('1.0', 'end')
-    txt2cod.insert('0.0', code_letters)
-
-    lst = get_lst()
+    txt2cod.insert('0.0', code_numbers)
     dict_digital = load_dict(dict_path)[0]
+    lst = get_lst_letters(code_numbers, dict_digital)
     lst_dig = lst_digital(lst, dict_digital)
     if lst_dig == []:
         output.delete('1.0', 'end')
@@ -155,8 +191,9 @@ def save_text(event):
 
     result = output.get('0.0', 'end-1c')
     dict_digital = load_dict(dict_path)[0]
-    result_dig = lst_digital(result, dict_digital)
-    results = 'Результат: ' + result + ' ({})'.format(result_dig) + '\n'
+    result_letters = get_lst_letters(result, dict_digital)
+    result_dig = lst_digital(result_letters, dict_digital)
+    results = 'Результат: ' + result + ' ({})'.format(result_dig) + ' ({})'.format(result_letters) + '\n'
 
     file = open('results.txt', 'w')
     file.write(results)
@@ -258,7 +295,9 @@ def testing_click(event):
             gamma_digital = get_gamma(lst)
             gamma_letters = make_letters(gamma_digital)
             code_digital = make_code(lst_dig, gamma_digital)
-            code_letters = make_letters(code_digital)
+            code_numbers = make_letters(code_digital)
+            code_letters = get_lst_letters(code_numbers, dict_digital)
+
 
         lstSh = code_letters
         lst_digSh = lst_digital(lstSh, dict_digital)
@@ -275,7 +314,7 @@ def testing_click(event):
 
         txts = text_to_code + '\t'
         gammas = gamma_letters + '\t'
-        results = code_letters + '\t'
+        results = code_numbers + '\t'
         shifrs = code_lettersSh + '\t'
         statuss = status + '\n'
 
