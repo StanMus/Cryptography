@@ -2,6 +2,7 @@
 from tkinter import *
 import tkinter.filedialog, tkinter.messagebox
 from algorithms import *
+from testX import *
 
 
 class Example(Frame):
@@ -57,7 +58,7 @@ class Example(Frame):
         btnTest = Button(frame1, bg='white', font="Verdana 11")
         btnTest.place(x=410, y=365, width=130, height=25)
         btnTest['text'] = 'Тест шифратора'
-        # btnTest.bind('<Button-1>', self.test_dialog)
+        btnTest.bind('<Button-1>', self.test_dialog)
 
         label3 = Label(frame1, text='Словарь:', bg='#E7E6E6', font="Verdana 11")
         label3.place(x=30, y=365, width=70, height=25)
@@ -112,11 +113,11 @@ class Example(Frame):
         self.txt2cod.insert('0.0', code_numbers)
         dict_digital = load_dict(self.libEntry)[0]
         lst = get_lst_letters(code_numbers, dict_digital)
-        lst_dig = lst_digital(lst, dict_digital)
-        if lst_dig == []:
+        if lst == '':
             self.output.delete('1.0', 'end')
-            self.output.insert('0.0', 'Невозможно зашифровать символ исходного текста')
+            self.output.insert('0.0', 'Невозможно дешифровать криптограмму, так как в криптограмме используется недопустимое значение')
         else:
+            lst_dig = lst_digital(lst, dict_digital)
             gamma_file = 'gamma.txt'
             file = open(gamma_file, 'r', encoding="utf8")
             gamma_digital = file.read()
@@ -133,34 +134,52 @@ class Example(Frame):
 
     def save_text(self, event):
         txt = self.txt2cod.get('1.0', 'end-1c')
-        dict_digital = load_dict(self.libEntry)[0]
-        txt_dig = lst_digital(txt, dict_digital)
-        txts = 'Исходный текст: ' + txt + ' ({})'.format(txt_dig)
+        shifr = self.output.get('1.0', 'end-1c')
+        if txt == '':
+            tkinter.messagebox.showinfo('Уведомление', message='Нет текста / криптограммы для сохранения в файл')
+        elif txt != '' and shifr=='':
+            tkinter.messagebox.showinfo('Уведомление', message='Проведите кодирование текста, после чего сохраните результат в файл')
+        else:
+            gamma_file = 'gamma.txt'
+            file = open(gamma_file, 'r', encoding="utf8")
+            gamma_dig = file.read()
+            file.close()
 
-        gamma_file = 'gamma.txt'
-        file = open(gamma_file, 'r', encoding="utf8")
-        gamma_dig = file.read()
-        file.close()
-        gamma_letters = make_letters(gamma_dig, self.libEntry)
-        gammas = 'Гамма: ' + gamma_letters + ' ({})'.format(gamma_dig) + '\n'
+            criteria = get_criteria (txt, gamma_dig, shifr, self.libEntry)
+            if not criteria:
+                tkinter.messagebox.showinfo('Уведомление',
+                                            message='Текст и криптограмма не соответсвтуют друг другу. Проведите кодирование текста, после чего сохраните результат в файл')
+            else:
+                dict_digital = load_dict(self.libEntry)[0]
+                txt_dig = lst_digital(txt, dict_digital)
+                txts = 'Исходный текст: ' + txt + ' ({})'.format(txt_dig)
 
-        result = self.output.get('0.0', 'end-1c')
-        dict_digital = load_dict(self.libEntry)[0]
-        result_letters = get_lst_letters(result, dict_digital)
-        result_dig = lst_digital(result_letters, dict_digital)
-        results = 'Результат: ' + result + ' ({})'.format(result_dig) + ' ({})'.format(result_letters) + '\n'
+                gamma_letters = make_letters(gamma_dig, self.libEntry)
+                gammas = 'Гамма: ' + gamma_dig + ' ({})'.format(gamma_letters) + '\n'
 
-        file = open('results.txt', 'w')
-        file.write(results)
-        file.close()
+                result = self.output.get('0.0', 'end-1c')
+                dict_digital = load_dict(self.libEntry)[0]
+                result_letters = get_lst_letters(result, dict_digital)
+                result_dig = lst_digital(result_letters, dict_digital)
+                results = 'Результат: ' + result + ' ({})'.format(result_dig) + ' ({})'.format(result_letters) + '\n'
 
-        file = open('results.txt', 'a')
-        file.write(gammas)
-        file.close()
+                file = open('results.txt', 'w')
+                file.write(results)
+                file.close()
 
-        file = open('results.txt', 'a')
-        file.write(txts)
-        file.close()
+                file = open('results.txt', 'a')
+                file.write(gammas)
+                file.close()
+
+                file = open('results.txt', 'a')
+                file.write(txts)
+                file.close()
+                tkinter.messagebox.showinfo('Уведомление', message='Текст, гамма и криптограмма сохранены в файл results.txt')
+
+    def test_dialog(self, event):
+        root = Tk()
+        app = Test(root)
+        app.mainloop()
 
 def main():
     root = Tk()

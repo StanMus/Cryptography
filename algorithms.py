@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 
 def get_lst(txt2cod):  # вывести в algorithms
@@ -40,16 +41,21 @@ def lst_digital(lst, dict_digital): # перевод исходного текс
 def get_lst_letters(lst_numbers, dict_digital):
     lst_numbers_str = lst_numbers.split()
     lst_numbers = []
-    for i in lst_numbers_str:
-        lst_number = int(i)
-        lst_numbers.append(lst_number)
+    try:
+        for i in lst_numbers_str:
+            lst_number = int(i)
+            lst_numbers.append(lst_number)
 
-    list_letters = list(dict_digital)
-    lst = []
-    for i in lst_numbers:
-        element = list_letters[i]
-        lst.append(element)
-    lst_str = ''.join(lst)
+        list_letters = list(dict_digital)
+        lst = []
+        for i in lst_numbers:
+            element = list_letters[i]
+            lst.append(element)
+        lst_str = ''.join(lst)
+
+    except:
+        lst_str = ''
+
     return lst_str
 
 def get_gamma(txt):
@@ -132,5 +138,22 @@ def make_numbers(code_digital, libEntry):
     except KeyError:
         code_letters = []
     return code_letters
+
+
+def get_criteria(text_to_code, gamma_dig, shifr, libEntry):
+    dict_digital = load_dict(libEntry)[0]
+
+    # lst_dig = lst_digital(lst, dict_digital)
+
+    lst = get_lst_letters(shifr, dict_digital)
+    if lst == '':
+        pass
+    else:
+        gamma_digital = gamma_dig
+        lst_dig = lst_digital(lst, dict_digital)
+        code_digital = make_code(lst_dig, gamma_digital)
+        code_letters = make_letters(code_digital, libEntry)
+
+    return code_letters == text_to_code
 
 # if __name__ == '__main__':  Нужен ли в algorithms?
