@@ -1,11 +1,24 @@
-def get_lst():
-    txt = 'aydfdfmvjdsajafads'
-    cod_txt = []
-    for i in txt:
-        cod_txt.append(str(i))
-    line = 'hdfnnejemdla;sjdrm.asf'
-    lst = []
-    for i in line:
-        lst.append(str(i))
+# -*- coding: utf-8 -*-
+from tkinter import Tk, Frame, BOTH
 
-get_lst()
+
+class Example(Frame):
+    def __init__(self, parent):
+        Frame.__init__(self, parent, background="white")
+        self.parent = parent
+        self.initUI()
+
+    def initUI(self):
+        self.parent.title("Simple")
+        self.pack(fill=BOTH, expand=1)
+
+
+def main():
+    root = Tk()
+    root.geometry("1250x1150+2000+100")
+    app = Example(root)
+    app.mainloop()
+
+
+if __name__ == '__main__':
+    main()
