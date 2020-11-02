@@ -22,13 +22,13 @@ class Test(Frame):
         labelT1 = Label(frameT, text='Количество тестов:', bg='#E7E6E6', font="Verdana 11")
         labelT1.place(x=10, y=30, width=150, height=25)
         self.libEntryT1 = Entry(frameT, bg="white", bd=0, font="Verdana 11")
-        self.libEntryT1.insert(END, 1000)
+        self.libEntryT1.insert(END, 7)
         self.libEntryT1.place(x=250, y=30, width=60, height=25)
 
         labelT2 = Label(frameT, text='Max длина текста:', bg='#E7E6E6', font="Verdana 11")
         labelT2.place(x=10, y=75, width=150, height=25)
         self.libEntryT2 = Entry(frameT, bg="white", bd=0, font="Verdana 11")
-        self.libEntryT2.insert(END, 15)
+        self.libEntryT2.insert(END, 7)
         self.libEntryT2.place(x=250, y=75, width=60, height=25)
 
         labelT3 = Label(frameT, text='Словарь:', bg='#E7E6E6', font="Verdana 11")
