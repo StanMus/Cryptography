@@ -6,7 +6,7 @@ import random
 
 class Test(Frame):
     def __init__(self, parent):
-        Frame.__init__(self, parent, background="white") # Зачем это нужно?
+        Frame.__init__(self, parent, background="white")
         self.parent = parent
         self.initUI()
 

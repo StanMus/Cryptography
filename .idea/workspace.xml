@@ -20,10 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe46323c-bf55-4ceb-858a-65c68ebfb1d7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Tests.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gamma.txt" beforeDir="false" afterPath="$PROJECT_DIR$/gamma.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testX.py" beforeDir="false" afterPath="$PROJECT_DIR$/testX.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -295,12 +294,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/algorithms.py</url>
-          <line>148</line>
+          <line>146</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/algorithms.py</url>
-          <line>156</line>
+          <line>154</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>

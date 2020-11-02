@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 
-def get_lst(txt2cod):  # вывести в algorithms
+def get_lst(txt2cod):
     txt = txt2cod.get('1.0', 'end-1c')
     cod_txt = txt
     return cod_txt
@@ -142,8 +142,6 @@ def make_numbers(code_digital, libEntry):
 
 def get_criteria(text_to_code, gamma_dig, shifr, libEntry):
     dict_digital = load_dict(libEntry)[0]
-
-    # lst_dig = lst_digital(lst, dict_digital)
 
     lst = get_lst_letters(shifr, dict_digital)
     if lst == '':

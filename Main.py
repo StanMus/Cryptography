@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from tkinter import *
 import tkinter.filedialog, tkinter.messagebox
-from algorithms import *
+
 from testX import *
 
 
