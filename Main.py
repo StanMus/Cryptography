@@ -7,13 +7,12 @@ from testX import *
 
 class Example(Frame):
     def __init__(self, parent):
-        Frame.__init__(self, parent, background="white") # Зачем это нужно?
+        Frame.__init__(self, parent, background="white")
         self.parent = parent
         self.initUI()
 
     def initUI(self):
         self.parent.title("Шифратор и дешифратор на основе алгоритма «Блокнот»")
-        # self.pack(fill=BOTH, expand=1)  # Что значит? Где определено pack?
         self.parent.iconbitmap(u'main.ico')
         self.parent.resizable(width=False, height=False)
         self.parent.configure() # Что значит?
@@ -66,26 +65,8 @@ class Example(Frame):
         self.libEntry.insert(END, 'dictionary.txt')
         self.libEntry.place(x=120, y=365, width=120, height=25)
 
-        # btnOpenD = Button(frame1, bg='white', bd=0, font="Verdana 11")
-        # btnOpenD.place(x=260, y=335, width=110, height=25)
-        # btnOpenD['text'] = 'Открыть'
-        # btnOpenD.bind('<Button-1>', open_dictionary)
-
-        # label4 = Label(frame1, text='Гамма:', bg='#E7E6E6', font="Verdana 11")
-        # label4.place(x=30, y=365, width=60, height=25)
-        # libEntry2 = Entry(frame1, bg="white", bd=0, font="Verdana 11")
-        # libEntry2.insert(END, 'gamma.txt')
-        # libEntry2.place(x=120, y=365, width=120, height=25)
-        # btnOpenG = Button(frame1, bg='white', bd=0, font="Verdana 11")
-        # btnOpenG.place(x=260, y=365, width=110, height=25)
-        # btnOpenG['text'] = 'Открыть'
-        # btnOpenG.bind('<Button-1>', open_gamma)
-
     def load_text(self, event):
-        # if not filename:
         self.filename = tkinter.filedialog.askopenfilename()
-        # else:
-            # self.filename = filename
         if not (self.filename == ''):
             f = open(self.filename, 'r')
             f2 = f.read()
